@@ -1,9 +1,11 @@
-'use strict'; 
+'use strict';
 
 const express = require('express');
 const path = require('path');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
+const db = require('./db')
+const models = require('./db/models')
 
 const app = express();
 
@@ -19,8 +21,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', require('./api')); // include our routes!
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+app.get('*', (req, res, next) => {
+  res.send("404 not found")
+  next()
+  // res.sendFile(path.join(__dirname, '../public/index.html'));
 }); // Send index.html for any other requests
 
 //error handling middleware
