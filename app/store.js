@@ -5,16 +5,15 @@ import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-t
 
 export default createStore(rootReducer, applyMiddleware(thunkMiddleware, loggingMiddleware))
 
-const initialState = {
-  campuses: [],
-  students: []
-}
+
 
 //action types
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
 const DELETE_CAMPUS = 'DELETE_CAMPUS'
 const CREATE_STUDENT = 'CREATE_STUDENT'
 const DELETE_STUDENT = 'DELETE_STUDENT'
+const GOT_CAMPUSES = 'GOT_CAMPUSES'
+const GOT_STUDENTS = 'GOT_STUDENTS'
 
 //action creators
 const createCampus = (campus) => {
@@ -44,4 +43,22 @@ const deleteStudent = (student) => {
     campus: student
   }
 }
+
+const gotCampuses = (campuses) => {
+  return {
+    type: GOT_CAMPUSES,
+    campuses: campuses
+  }
+}
+
+const gotStudents = (students) => {
+  return {
+    type: GOT_STUDENTS,
+    students: students
+  }
+}
+
+export { gotCampuses, gotStudents }
+
+
 

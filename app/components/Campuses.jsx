@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { store } from '../store'
+import store, { gotCampuses } from '../store'
 
 export class Campuses extends Component {
 
@@ -9,16 +10,37 @@ export class Campuses extends Component {
     this.state = store.getState()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     axios.get('api/campuses')
-    .then(res => res.data)
-    .then(console.log)
+      .then(res => res.data)
+      .then(campuses => {
+        const action = gotCampuses(campuses)
+        store.dispatch(action)
+      });
+
+    this.unsubscribeFromStore = store.subscribe(() => {
+      this.setState(store.getState());
+    });
   }
 
-  render () {
+  componentWillUnmount() {
+    this.unsubscribeFromStore();
+  }
+
+  render() {
+    console.log("state", this.state)
+    const campuses = this.state.campuses
     return (
       <div>
-        <h2>Campuses go here</h2>
+        {
+          campuses.map((campus) => {
+            return (
+              <Link to={`/campuses/${campus.id}`} key={campus.id}>
+                <h2 >{campus.name}</h2>
+              </Link>
+            )
+          })
+        }
       </div>
     )
   }
