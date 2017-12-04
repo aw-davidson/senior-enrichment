@@ -3,7 +3,8 @@ import { combineReducers } from 'redux'
 
 const initialState = {
   campuses: [],
-  students: []
+  students: [],
+  campus: {}
 }
 
 const rootReducer = function(state = initialState, action) {
@@ -20,6 +21,8 @@ const rootReducer = function(state = initialState, action) {
     return Object.assign({}, state, {campuses: action.campuses});
     case 'GOT_STUDENTS':
     return Object.assign({}, state, {students: action.students});
+    case 'GOT_CAMPUS':
+    return Object.assign({}, state, {campus: action.campus});
     default: return state
   }
 };

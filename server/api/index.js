@@ -54,7 +54,9 @@ apiRouter.route('/campuses/:campusId')
 
 apiRouter.route('/students')
 	.get((req, res, next) => {
-		Students.findAll()
+		Students.findAll({
+			include: [{model: Campuses}]
+		})
 		.then(students => res.status(200).json(students))
 		.catch(next)
 	})

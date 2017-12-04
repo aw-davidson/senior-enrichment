@@ -27,7 +27,7 @@ export class Students extends Component {
   }
   render() {
     const students = this.state.students
-    console.log("students: ", students)
+    
     return (
       <div>
         <button>Add Student</button>

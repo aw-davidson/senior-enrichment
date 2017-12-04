@@ -14,8 +14,15 @@ const CREATE_STUDENT = 'CREATE_STUDENT'
 const DELETE_STUDENT = 'DELETE_STUDENT'
 const GOT_CAMPUSES = 'GOT_CAMPUSES'
 const GOT_STUDENTS = 'GOT_STUDENTS'
+const GOT_CAMPUS = 'GOT_CAMPUS'
 
 //action creators
+const gotCampus = (campus) => {
+  return {
+    type: GOT_CAMPUS,
+    campus
+  }
+}
 const createCampus = (campus) => {
   return {
     type: CREATE_CAMPUS,
@@ -58,7 +65,7 @@ const gotStudents = (students) => {
   }
 }
 
-export { gotCampuses, gotStudents }
+export { gotCampuses, gotStudents, gotCampus }
 
 
 
