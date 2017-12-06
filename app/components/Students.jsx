@@ -7,16 +7,10 @@ export class Students extends Component {
   constructor() {
     super()
     this.state = store.getState()
+
   }
 
   componentDidMount() {
-    axios.get('api/students')
-      .then(res => res.data)
-      .then(students => {
-        const action = gotStudents(students)
-        store.dispatch(action)
-      });
-
     this.unsubscribeFromStore = store.subscribe(() => {
       this.setState(store.getState());
     });
@@ -27,15 +21,15 @@ export class Students extends Component {
   }
   render() {
     const students = this.state.students
-    
+
     return (
       <div>
         <button>Add Student</button>
         {
           students.map((student) => {
             return (
-              <Link to={`/students/${student.id}`} key={student.id}>
-                <h2>{student.name}</h2>
+              <Link to={`/students/${student.id}`} style={{ textDecoration: 'none', color: 'black' }} key={student.id}>
+                <h2>{student.name + ' ' + student.campus.name}</h2>
               </Link>
             )
           })

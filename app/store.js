@@ -3,7 +3,8 @@ import rootReducer from './reducers';
 import loggingMiddleware from 'redux-logger'; // https://github.com/evgenyrodionov/redux-logger
 import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-thunk
 
-export default createStore(rootReducer, applyMiddleware(thunkMiddleware, loggingMiddleware))
+export default createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware, loggingMiddleware))
+import axios from 'axios'
 
 
 
@@ -65,7 +66,41 @@ const gotStudents = (students) => {
   }
 }
 
-export { gotCampuses, gotStudents, gotCampus }
+//thunk creators
+
+const fetchStudents = () => {
+  return function studentsThunk (dispatch) {
+    return axios.get('api/students')
+    .then(res => res.data)
+    .then(students => {
+      const action = gotStudents(students)
+      dispatch(action)
+    })
+  }
+}
+
+const fetchCampuses = () => {
+  return function campusesThunk (dispatch) {
+    return  axios.get('api/campuses')
+    .then(res => res.data)
+    .then(campuses => {
+      const action = gotCampuses(campuses)
+      dispatch(action)
+    });
+  }
+}
+
+const fetchCampus = (campusId) => {
+  return function campusThunk (dispatch) {
+    axios.get(`/api/campuses/${campusId}`)
+    .then(res => res.data)
+    .then(campus => {
+      dispatch(gotCampus(campus))
+    })
+  }
+}
+
+export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus }
 
 
 

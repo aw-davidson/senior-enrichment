@@ -1,28 +1,19 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import store, { gotCampus, gotStudents } from '../store'
+import store, { fetchCampus, fetchCampuses } from '../store'
 import { Link } from 'react-router-dom'
 
 export class SingleCampus extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = store.getState()
   }
 
   componentDidMount() {
-    axios.get(`/api/campuses/${this.props.match.params.campusId}`)
-    .then(res => res.data)
-    .then(campus => {
-      store.dispatch(gotCampus(campus))
-    })
+    store.dispatch(fetchCampus(this.props.match.params.campusId))
     this.unsubscribeFromStore = store.subscribe(() => {
       this.setState(store.getState());
     });
-    axios.get('/api/students')
-    .then(res => res.data)
-    .then(students => {
-      store.dispatch(gotStudents(students))
-    })
   }
 
   componentWillUnmount() {
@@ -37,10 +28,10 @@ export class SingleCampus extends Component {
         {
           students.filter((student) => {
             return student.campus.id == this.props.match.params.campusId
-          }).map((student) => {
+          }).map((student, index) => {
             return (
-              <Link to={`/students/${student.id}`} key={student.id}>
-                <h2>{student.name}</h2>
+              <Link to={`/students/${student.id}`} key={student.id} style={{ textDecoration: 'none', color: 'black' }}>
+                <h2>{`${index + 1} - ` + student.name}</h2>
               </Link>
             )
           })

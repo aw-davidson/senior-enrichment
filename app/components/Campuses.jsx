@@ -11,13 +11,6 @@ export class Campuses extends Component {
   }
 
   componentDidMount() {
-    axios.get('api/campuses')
-      .then(res => res.data)
-      .then(campuses => {
-        const action = gotCampuses(campuses)
-        store.dispatch(action)
-      });
-
     this.unsubscribeFromStore = store.subscribe(() => {
       this.setState(store.getState());
     });
@@ -28,16 +21,18 @@ export class Campuses extends Component {
   }
 
   render() {
-    console.log("state", this.state)
     const campuses = this.state.campuses
     return (
       <div>
         {
           campuses.map((campus) => {
             return (
-              <Link to={`/campuses/${campus.id}`} key={campus.id}>
-                <h2 >{campus.name}</h2>
-              </Link>
+              <div key={campus.id}>
+                <Link to={`/campuses/${campus.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                  <h2 >{campus.name}</h2>
+                <img src={campus.imageUrl} />
+                </Link>
+              </div>
             )
           })
         }
