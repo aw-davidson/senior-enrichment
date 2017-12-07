@@ -11,7 +11,10 @@ import axios from 'axios'
 //action types
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
 const DELETE_CAMPUS = 'DELETE_CAMPUS'
-const CREATE_STUDENT = 'CREATE_STUDENT'
+const WRITE_STUDENT_FIRST_NAME = 'WRITE_STUDENT_FIRST_NAME'
+const WRITE_STUDENT_LAST_NAME = 'WRITE_STUDENT_LAST_NAME'
+const WRITE_STUDENT_EMAIL = 'WRITE_STUDENT_EMAIL'
+const POST_STUDENT ='POST_STUDENT'
 const DELETE_STUDENT = 'DELETE_STUDENT'
 const GOT_CAMPUSES = 'GOT_CAMPUSES'
 const GOT_STUDENTS = 'GOT_STUDENTS'
@@ -38,17 +41,32 @@ const deleteCampus = (campus) => {
   }
 }
 
-const createStudent = (student) => {
+const writeStudentFirstName = (newStudentFirstName) => {
   return {
-    type: CREATE_STUDENT,
-    campus: student
+    type: WRITE_STUDENT_FIRST_NAME,
+    newStudentFirstName
   }
 }
 
-const deleteStudent = (student) => {
+const writeStudentLastName = (newStudentLastName) => {
+  return {
+    type: WRITE_STUDENT_LAST_NAME,
+    newStudentLastName
+  }
+}
+
+const writeStudentEmail = (newStudentEmail) => {
+  return {
+    type: WRITE_STUDENT_EMAIL,
+    newStudentEmail
+  }
+}
+
+
+const deletedStudent = (studentId) => {
   return {
     type: DELETE_STUDENT,
-    campus: student
+    studentId
   }
 }
 
@@ -92,7 +110,7 @@ const fetchCampuses = () => {
 
 const fetchCampus = (campusId) => {
   return function campusThunk (dispatch) {
-    axios.get(`/api/campuses/${campusId}`)
+    return axios.get(`/api/campuses/${campusId}`)
     .then(res => res.data)
     .then(campus => {
       dispatch(gotCampus(campus))
@@ -100,7 +118,22 @@ const fetchCampus = (campusId) => {
   }
 }
 
-export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus }
+const postStudent = (newStudent) => {
+  return function postStudentThunk (dispatch) {
+    return axios.post
+  }
+}
+
+const deleteStudent = (studentId) => {
+  return function deleteStudentThunk (dispatch) {
+    return axios.delete(`/api/students/${studentId}`)
+    .then(() => {
+      dispatch(deletedStudent(studentId))
+    })
+  }
+}
+
+export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus, deleteStudent, writeStudentFirstName, writeStudentLastName, writeStudentEmail }
 
 
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import store, { gotStudents } from '../store'
+import store, {deleteStudent } from '../store'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+
 
 export class Students extends Component {
   constructor() {
@@ -19,18 +19,28 @@ export class Students extends Component {
   componentWillUnmount() {
     this.unsubscribeFromStore();
   }
+
+  handleDelete(studentId) {
+    store.dispatch(deleteStudent(studentId))
+  }
+
+
   render() {
     const students = this.state.students
 
     return (
       <div>
-        <button>Add Student</button>
+        <Link to='/students/addstudent'>Add Student</Link>
         {
           students.map((student) => {
             return (
-              <Link to={`/students/${student.id}`} style={{ textDecoration: 'none', color: 'black' }} key={student.id}>
-                <h2>{student.name + ' ' + student.campus.name}</h2>
-              </Link>
+              <div key={student.id}>
+                <Link to={`/students/${student.id}`} style={{ textDecoration: 'none', color: 'black' }} >
+                  <h2>{student.name}</h2>
+                  <h2>{student.campus.name}</h2>
+                </Link>
+                <button onClick={this.handleDelete.bind(this, student.id)}>&times;</button>
+              </div>
             )
           })
         }
