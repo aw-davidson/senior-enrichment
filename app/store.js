@@ -7,18 +7,22 @@ export default createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && w
 import axios from 'axios'
 
 
-
 //action types
 const CREATE_CAMPUS = 'CREATE_CAMPUS'
 const DELETE_CAMPUS = 'DELETE_CAMPUS'
 const WRITE_STUDENT_FIRST_NAME = 'WRITE_STUDENT_FIRST_NAME'
 const WRITE_STUDENT_LAST_NAME = 'WRITE_STUDENT_LAST_NAME'
 const WRITE_STUDENT_EMAIL = 'WRITE_STUDENT_EMAIL'
+const SELECT_CAMPUS = 'SELECT_CAMPUS'
 const POST_STUDENT ='POST_STUDENT'
+const UPDATE_STUDENT = 'UPDATE_STUDENT'
 const DELETE_STUDENT = 'DELETE_STUDENT'
+const CREATE_STUDENT = 'CREATE_STUDENT'
 const GOT_CAMPUSES = 'GOT_CAMPUSES'
 const GOT_STUDENTS = 'GOT_STUDENTS'
 const GOT_CAMPUS = 'GOT_CAMPUS'
+
+
 
 //action creators
 const gotCampus = (campus) => {
@@ -38,6 +42,13 @@ const deleteCampus = (campus) => {
   return {
     type: DELETE_CAMPUS,
     campus: campus
+  }
+}
+
+const selectCampus = (selectedCampusId) => {
+  return {
+    type: SELECT_CAMPUS,
+    selectedCampusId
   }
 }
 
@@ -84,6 +95,20 @@ const gotStudents = (students) => {
   }
 }
 
+const createStudent = (student) => {
+  return {
+    type: CREATE_STUDENT,
+    student
+  }
+}
+
+const updateStudent = (student) => {
+  return {
+    type: UPDATE_STUDENT,
+    student
+  }
+}
+
 //thunk creators
 
 const fetchStudents = () => {
@@ -120,7 +145,21 @@ const fetchCampus = (campusId) => {
 
 const postStudent = (newStudent) => {
   return function postStudentThunk (dispatch) {
-    return axios.post
+    return axios.post('api/students', newStudent)
+    .then(res => res.data)
+    .then(student => {
+      dispatch(createStudent(student))
+    })
+  }
+}
+
+const putStudent = (student) => {
+  return function putStudentThunk (dispatch) {
+    return axios.put(`api/students/${student.id}`)
+    .then(res => res.data)
+    .then(updatedStudent => {
+      dispatch(updateStudent(updatedStudent))
+    })
   }
 }
 
@@ -133,7 +172,7 @@ const deleteStudent = (studentId) => {
   }
 }
 
-export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus, deleteStudent, writeStudentFirstName, writeStudentLastName, writeStudentEmail }
+export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus, deleteStudent, writeStudentFirstName, writeStudentLastName, writeStudentEmail, selectCampus, postStudent, putStudent }
 
 
 

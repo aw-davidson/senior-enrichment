@@ -61,7 +61,16 @@ apiRouter.route('/students')
 		.catch(next)
 	})
 	.post((req, res, next) => {
+		//Using findOne to eager load the campus. Emails should be unqiue to students.
 		Students.create(req.body)
+		.then(() => {
+			return Students.findOne({
+				where: {
+					email: req.body.email
+				},
+				include: [{model: Campuses}]
+			})
+		})
 		.then(student => res.status(201).json(student))
 		.catch(next)
 	})

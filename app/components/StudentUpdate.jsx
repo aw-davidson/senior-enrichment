@@ -1,10 +1,10 @@
 import React from 'react';
 import Dropdown from 'react-dropdown'
-import { writeStudentFirstName, writeStudentLastName, writeStudentEmail, selectCampus, postStudent } from '../store'
+import { writeStudentFirstName, writeStudentLastName, writeStudentEmail, selectCampus, putStudent } from '../store'
 import { connect } from 'react-redux'
 
 
-function NewStudentEntry(props) {
+function StudentUpdate(props) {
 
   const { firstNameChange, lastNameChange, submitStudent, emailChange, onSelect, campuses, newStudentFirstName, newStudentLastName, newStudentEmail, selectedCampusId} = props
 
@@ -16,7 +16,7 @@ function NewStudentEntry(props) {
   return (
     <form onSubmit={submitStudent.bind(this, selectedCampusId)} style={{ marginTop: '20px' }}>
       <fieldset className="form-group">
-        <legend>Add a new student </legend>
+        <legend>Update a student </legend>
         <input
           className="form-control"
           type="text"
@@ -48,6 +48,7 @@ function NewStudentEntry(props) {
 
 
 const mapDispatchToProps = function (dispatch, ownProps) {
+  console.log("props", ownProps)
   return {
     submitStudent: function (campusId, event) {
       event.preventDefault()
@@ -57,7 +58,8 @@ const mapDispatchToProps = function (dispatch, ownProps) {
          email: event.target.email.value,
          campusId: campusId
         }
-      dispatch(postStudent(newStudent))
+      dispatch(putStudent(newStudent))
+
       ownProps.history.push('/students')
     },
     firstNameChange: function (event) {
@@ -91,7 +93,7 @@ const mapStateToProps = function (state) {
   };
 };
 
-const NewStudentEntryContainer = connect(mapStateToProps, mapDispatchToProps)(NewStudentEntry);
+const StudentUpdateContainer = connect(mapStateToProps, mapDispatchToProps)(StudentUpdate);
 
 
-export default NewStudentEntryContainer;
+export default StudentUpdateContainer;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import store, { fetchCampus, fetchCampuses } from '../store'
+import store, { fetchCampus } from '../store'
 import { Link } from 'react-router-dom'
 
 export class SingleCampus extends Component {
