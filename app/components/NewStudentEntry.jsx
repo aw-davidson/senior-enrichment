@@ -15,8 +15,10 @@ function NewStudentEntry(props) {
 
   return (
     <form onSubmit={submitStudent.bind(this, selectedCampusId)} style={{ marginTop: '20px' }}>
-      <fieldset className="form-group">
+      <fieldset >
         <legend>Add a new student </legend>
+        <div className="form-group">
+        <label>First Name</label>
         <input
           className="form-control"
           type="text"
@@ -24,20 +26,25 @@ function NewStudentEntry(props) {
           placeholder="first name"
           onChange={firstNameChange}
         />
+        </div>
+        <label>Last Name</label>
         <input
           className="form-control"
           name="lastName"
           placeholder="Last name"
           onChange={lastNameChange}
         />
+        <label>Email Name</label>
         <input
           className="form-control"
           name="email"
           placeholder="email"
           onChange={emailChange}
         />
-        <label>Select a campus:  </label>
-        <Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect.bind(this, campuses)} />
+        <label>Select a campus:
+        <Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect.bind(this, campuses)}
+        />
+        </label>
         <div className="form-group">
           <button type="submit" className="btn btn-default" >submit</button>
         </div>

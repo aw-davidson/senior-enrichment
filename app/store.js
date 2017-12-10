@@ -155,10 +155,9 @@ const postStudent = (newStudent) => {
 
 const putStudent = (student) => {
   return function putStudentThunk (dispatch) {
-    return axios.put(`api/students/${student.id}`)
-    .then(res => res.data)
-    .then(updatedStudent => {
-      dispatch(updateStudent(updatedStudent))
+    return axios.put(`api/students/${student.id}`, student)
+    .then(() => {
+      dispatch(updateStudent(student))
     })
   }
 }

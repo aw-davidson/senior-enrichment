@@ -56,11 +56,11 @@ const mapDispatchToProps = function (dispatch, ownProps) {
          firstName: event.target.firstName.value,
          lastName: event.target.lastName.value,
          email: event.target.email.value,
-         campusId: campusId
+         campusId: campusId,
+         id: ownProps.id,
+         studentId: ownProps.id
         }
       dispatch(putStudent(newStudent))
-
-      ownProps.history.push('/students')
     },
     firstNameChange: function (event) {
       event.preventDefault()

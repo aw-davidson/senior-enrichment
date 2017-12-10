@@ -29,16 +29,20 @@ export class Students extends Component {
     const students = this.state.students
 
     return (
-      <div>
+      <div className="row">
         <Link to='/students/addstudent'>Add Student</Link>
         {
           students.map((student) => {
             return (
-              <div key={student.id}>
+              <div className="col-sm-4" key={student.id}>
                 <Link to={`/students/${student.id}`} style={{ textDecoration: 'none', color: 'black' }} >
                   <h2>{student.name}</h2>
-                  <h2>{student.campus.name}</h2>
+
+                  <h5>
+                  {student.campus.name + ' '}
+                  campus</h5>
                 </Link>
+                <label>delete student     </label>
                 <button onClick={this.handleDelete.bind(this, student.id)}>&times;</button>
               </div>
             )

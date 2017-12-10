@@ -23,11 +23,11 @@ export class Campuses extends Component {
   render() {
     const campuses = this.state.campuses
     return (
-      <div>
+      <div className="row">
         {
           campuses.map((campus) => {
             return (
-              <div key={campus.id}>
+              <div className="col-sm-4" key={campus.id}>
                 <Link to={`/campuses/${campus.id}`} style={{ textDecoration: 'none', color: 'black' }}>
                   <h2 >{campus.name}</h2>
                 <img src={campus.imageUrl} />
