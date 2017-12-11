@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 function NewStudentEntry(props) {
 
-  const { firstNameChange, lastNameChange, submitStudent, emailChange, onSelect, campuses, newStudentFirstName, newStudentLastName, newStudentEmail, selectedCampusId} = props
+  const { firstNameChange, lastNameChange, submitStudent, emailChange, onSelect, campuses, selectedCampusId } = props
 
   const options = campuses.map(campus => {
     return campus.name
@@ -18,14 +18,14 @@ function NewStudentEntry(props) {
       <fieldset >
         <legend>Add a new student </legend>
         <div className="form-group">
-        <label>First Name</label>
-        <input
-          className="form-control"
-          type="text"
-          name="firstName"
-          placeholder="first name"
-          onChange={firstNameChange}
-        />
+          <label>First Name</label>
+          <input
+            className="form-control"
+            type="text"
+            name="firstName"
+            placeholder="first name"
+            onChange={firstNameChange}
+          />
         </div>
         <label>Last Name</label>
         <input
@@ -42,8 +42,9 @@ function NewStudentEntry(props) {
           onChange={emailChange}
         />
         <label>Select a campus:
-        <Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect.bind(this, campuses)}
-        />
+        <Dropdown
+            options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect.bind(this, campuses)}
+          />
         </label>
         <div className="form-group">
           <button type="submit" className="btn btn-default" >submit</button>
@@ -58,12 +59,12 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     submitStudent: function (campusId, event) {
       event.preventDefault()
-       const newStudent = {
-         firstName: event.target.firstName.value,
-         lastName: event.target.lastName.value,
-         email: event.target.email.value,
-         campusId: campusId
-        }
+      const newStudent = {
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        email: event.target.email.value,
+        campusId: campusId
+      }
       dispatch(postStudent(newStudent))
       ownProps.history.push('/students')
     },

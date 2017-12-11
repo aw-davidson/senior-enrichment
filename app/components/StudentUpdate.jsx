@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 
 function StudentUpdate(props) {
-  const { firstNameChange, lastNameChange, submitStudent, emailChange, onSelect, campuses, newStudentFirstName, newStudentLastName, newStudentEmail, selectedCampusId} = props
+  const { firstNameChange, lastNameChange, submitStudent, emailChange, onSelect, campuses, selectedCampusId } = props
 
   const options = campuses.map(campus => {
     return campus.name
@@ -51,14 +51,14 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     submitStudent: function (campusId, event) {
       event.preventDefault()
-       const newStudent = {
-         firstName: event.target.firstName.value,
-         lastName: event.target.lastName.value,
-         email: event.target.email.value,
-         campusId: campusId,
-         id: ownProps.id,
-         studentId: ownProps.id
-        }
+      const newStudent = {
+        firstName: event.target.firstName.value,
+        lastName: event.target.lastName.value,
+        email: event.target.email.value,
+        campusId: campusId,
+        id: ownProps.id,
+        studentId: ownProps.id
+      }
       dispatch(putStudent(newStudent))
       ownProps.history.push('/students')
     },

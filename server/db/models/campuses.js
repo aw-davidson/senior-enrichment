@@ -26,14 +26,14 @@ const Campuses = db.define('campuses', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: function() {
+    defaultValue: function () {
       return getRandomImage();
-    },
-    description: {
-      type: Sequelize.TEXT
     }
-
+  },
+  description: {
+    type: Sequelize.TEXT
   }
 })
 
 module.exports = Campuses;
+

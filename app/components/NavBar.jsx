@@ -15,17 +15,3 @@ export const NavBar = () => {
     </nav>
   )
 }
-
-// <div className="navbar navbar-default">
-// <div className="nav navbar-nav navbar-center">
-//   <NavLink to="/">
-//     <button>Home</button>
-//   </NavLink>
-//   <NavLink to="/campuses">
-//     <button>Campuses</button>
-//   </NavLink>
-//   <NavLink to="/students">
-//     <button>Students</button>
-//   </NavLink>
-//   </div>
-// </div>
