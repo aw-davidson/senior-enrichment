@@ -7,6 +7,7 @@ import SingleStudent from './SingleStudent';
 import { SingleCampus } from './SingleCampus';
 import { Home } from './Home';
 import  NewStudentEntry  from './NewStudentEntry'
+import  NewCampus  from './NewCampus'
 import store, { fetchStudents, fetchCampuses } from '../store'
 
 export default class Root extends Component {
@@ -26,6 +27,7 @@ export default class Root extends Component {
           <Switch>
             <Route exact path='/students' component={Students} />
             <Route exact path='/students/addstudent' component={NewStudentEntry} />
+            <Route exact path='/students/addcampus' component={NewCampus} />
             <Route exact path='/students/:studentId' component={SingleStudent} />
             <Route exact path='/campuses/:campusId' component={SingleCampus} />
             <Route exact path='/campuses' component={Campuses} />

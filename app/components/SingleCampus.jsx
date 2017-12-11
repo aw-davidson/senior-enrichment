@@ -26,7 +26,9 @@ export class SingleCampus extends Component {
         <h2>{this.state.campus.name} Campus</h2>
         {
           students.filter((student) => {
+          if (student.campus){
             return student.campus.id == this.props.match.params.campusId
+          }
           }).map((student, index) => {
             return (
               <Link to={`/students/${student.id}`} key={student.id} style={{ textDecoration: 'none', color: 'black' }}>

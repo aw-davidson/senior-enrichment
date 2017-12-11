@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import store, { gotCampuses } from '../store'
+import store, { deleteCampus } from '../store'
 
 export class Campuses extends Component {
 
@@ -20,10 +19,16 @@ export class Campuses extends Component {
     this.unsubscribeFromStore();
   }
 
+  handleDelete(campusId) {
+    store.dispatch(deleteCampus(campusId))
+  }
+
   render() {
     const campuses = this.state.campuses
     return (
       <div className="row">
+      <Link to='/students/addcampus'>Add Campus</Link>
+
         {
           campuses.map((campus) => {
             return (
@@ -32,6 +37,8 @@ export class Campuses extends Component {
                   <h2 >{campus.name}</h2>
                 <img src={campus.imageUrl} />
                 </Link>
+                <label>delete campus     </label>
+                <button onClick={this.handleDelete.bind(this, campus.id)}>&times;</button>
               </div>
             )
           })

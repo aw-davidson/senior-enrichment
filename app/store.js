@@ -38,10 +38,10 @@ const createCampus = (campus) => {
   }
 }
 
-const deleteCampus = (campus) => {
+const deletedCampus = (campusId) => {
   return {
     type: DELETE_CAMPUS,
-    campus: campus
+    campusId
   }
 }
 
@@ -153,6 +153,16 @@ const postStudent = (newStudent) => {
   }
 }
 
+const postCampus = (newCampus) => {
+  return function postCampusThunk (dispatch) {
+    return axios.post('api/campuses', newCampus)
+    .then(res => res.data)
+    .then(campus => {
+      dispatch(createCampus(campus))
+    })
+  }
+}
+
 const putStudent = (student) => {
   return function putStudentThunk (dispatch) {
     return axios.put(`api/students/${student.id}`, student)
@@ -171,7 +181,17 @@ const deleteStudent = (studentId) => {
   }
 }
 
-export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus, deleteStudent, writeStudentFirstName, writeStudentLastName, writeStudentEmail, selectCampus, postStudent, putStudent }
+const deleteCampus = (campusId) => {
+  return function deleteCampusThunk (dispatch) {
+    return axios.delete(`/api/campuses/${campusId}`)
+    .then(() => {
+      dispatch(deletedCampus(campusId))
+    })
+  }
+}
+
+
+export { gotCampuses, gotStudents, gotCampus, fetchStudents, fetchCampuses, fetchCampus, deleteStudent, writeStudentFirstName, writeStudentLastName, writeStudentEmail, selectCampus, postStudent, putStudent, deleteCampus, postCampus }
 
 
 

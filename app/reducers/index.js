@@ -16,9 +16,11 @@ const initialState = {
 const rootReducer = function(state = initialState, action) {
   switch (action.type) {
     case 'CREATE_CAMPUS':
-    return Object.assign({}, state, {campuses: [...state.campus, action.campus]});
+    return Object.assign({}, state, {campuses: [...state.campuses, action.campus]});
     case 'DELETE_CAMPUS':
-    return Object.assign({}, state, {campuses: action.campus});
+    return Object.assign({}, state, {campuses: state.campuses.filter(campus => {
+      return campus.id != action.campusId
+    })});
     case 'SELECT_CAMPUS':
     return Object.assign({}, state, {selectedCampusId: action.selectedCampusId});
     case 'WRITE_STUDENT_FIRST_NAME':

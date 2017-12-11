@@ -2,10 +2,10 @@ import React from 'react';
 import Dropdown from 'react-dropdown'
 import { writeStudentFirstName, writeStudentLastName, writeStudentEmail, selectCampus, putStudent } from '../store'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 
 function StudentUpdate(props) {
-
   const { firstNameChange, lastNameChange, submitStudent, emailChange, onSelect, campuses, newStudentFirstName, newStudentLastName, newStudentEmail, selectedCampusId} = props
 
   const options = campuses.map(campus => {
@@ -39,7 +39,7 @@ function StudentUpdate(props) {
         <label>Select a campus:  </label>
         <Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect.bind(this, campuses)} />
         <div className="form-group">
-          <button type="submit" className="btn btn-default" >submit</button>
+          <button type="submit" className="btn btn-default" >update</button>
         </div>
       </fieldset>
     </form>
@@ -48,7 +48,6 @@ function StudentUpdate(props) {
 
 
 const mapDispatchToProps = function (dispatch, ownProps) {
-  console.log("props", ownProps)
   return {
     submitStudent: function (campusId, event) {
       event.preventDefault()
@@ -61,6 +60,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
          studentId: ownProps.id
         }
       dispatch(putStudent(newStudent))
+      ownProps.history.push('/students')
     },
     firstNameChange: function (event) {
       event.preventDefault()
@@ -93,7 +93,7 @@ const mapStateToProps = function (state) {
   };
 };
 
-const StudentUpdateContainer = connect(mapStateToProps, mapDispatchToProps)(StudentUpdate);
+const StudentUpdateContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(StudentUpdate));
 
 
 export default StudentUpdateContainer;

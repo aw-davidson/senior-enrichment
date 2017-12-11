@@ -14,6 +14,7 @@ apiRouter.route('/campuses')
 		.catch(next)
 	})
 	.post((req, res, next) => {
+		console.log("body: ", req.body)
 		Campuses.create(req.body)
 		.then(campus => res.status(201).json(campus))
 		.catch(next)
